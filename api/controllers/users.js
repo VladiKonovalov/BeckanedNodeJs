@@ -31,8 +31,7 @@ module.exports = {
                     console.log(result);
 
                     res.status(200).json({
-                        message: 'new user Created',
-                       _id
+                        message: 'new user Created'
                     })
                 }).catch(error => {
                     res.status(500).json({
