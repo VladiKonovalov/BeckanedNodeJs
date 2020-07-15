@@ -82,7 +82,7 @@ module.exports = {
         const token = req.headers.authorization.split(' ')[1];
         const decoded = jwt.decode(token, { complete: true });
         creater = decoded.payload.username;
-
+        const createdDate=Date.now();
         if (title === '' || description === '') {
             return res.status(500).json({
                 message: "Error The title or description are empty"
@@ -92,11 +92,13 @@ module.exports = {
             _id: new mongoose.Types.ObjectId(),
             title,
             description,
-            creater
+            creater,
+            createdDate
         });
 
         res.status(200).json({
-            message: 'new Task Created'
+            message: 'new Task Created',
+            task
         })
         return task.save();
 
