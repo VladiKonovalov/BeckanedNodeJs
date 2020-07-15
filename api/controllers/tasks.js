@@ -26,7 +26,7 @@ module.exports = {
         else {
             Task.find({ creater }).then((tasks) => {
                 res.status(200).json({
-                    tasks
+                    "data[]": tasks
                 })
             }).catch(error => {
                 res.status(500).json({
