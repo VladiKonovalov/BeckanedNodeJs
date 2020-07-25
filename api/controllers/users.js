@@ -97,14 +97,7 @@ module.exports = {
         isAdmin = decoded.payload.isAdmin;
         creater = decoded.payload.username;
         if (isAdmin) {
-            User.find({},
-                 {
-                    
-                        $addFields: {
-                          lastDate  : "$someField.a"
-                        }, 
-                    
-                    password:0,__v:0}). then((users) => {
+            User.find({}, {password:0,__v:0}). then((users) => {
                 res.status(200).json({
                     users
                 })
