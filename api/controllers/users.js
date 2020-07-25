@@ -76,9 +76,11 @@ module.exports = {
                     })
    
                     return res.status(200).json({
-                        message: 'login succesfuly',
-                        token
-                    })
+                        token,
+                        username,
+                       isAdmin :user.isAdmin
+
+                                     })
                 }
                  res.status(401).json({
                     message: 'failed to login'
@@ -86,5 +88,31 @@ module.exports = {
             })
         })
 
-    }
+    },
+
+    getAllUsers: (req, res) => {
+
+        const token = req.headers.authorization.split(' ')[1];
+        const decoded = jwt.decode(token, { complete: true });
+        isAdmin = decoded.payload.isAdmin;
+        creater = decoded.payload.username;
+        if (isAdmin) {
+            User.find({}, {password:0,__v:0}). then((users) => {
+                res.status(200).json({
+                    users
+                })
+                }
+            ).catch(error => {
+                res.status(500).json({
+                    error
+                })
+            });
+
+        }
+        return res.status(403).json({
+            message: "just admin permission"
+        })
+
+    },
+
 }
