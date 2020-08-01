@@ -20,11 +20,15 @@ module.exports = {
                         error
                     })
                 }
+
+                if (req.isAdmin  === undefined ){
+                    req.isAdmin="false";         
+                }
                 const user = new User({
                     _id: new mongoose.Types.ObjectId(),
                     username,
                     password: hash,
-                    isAdmin
+                    isAdmin :req.isAdmin 
                 });
 
                 user.save().then((result) => {
